@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+#define M 10000
+int board[M][M];
+int N;
+bool isSafe(int r, int c){
+    for(int i=0; i<r; i++){
+        if(board[i][c]){
+            return false;
+        }
+    }
+    for(int i=r-1, j=c-1; i>=0 && j>=0 ; i--, j--){
+        if(board[i][j]){
+            return false;
+        }
+    }
+    for(int i=r-1, j=c+1; i>=0 && j<N ; i--, j++){
+        if(board[i][j]){
+            return false;
+        }
+    }
+    return true;
+}
+void solveNQueen(int row){
+    if(row == N){
+        cout << "\nSolution:\n";
+        for(int i=0; i<N; i++){
+            for(int j=0; j<N; j++){
+                cout << board[i][j] << " ";
+            }
+            cout << endl;
+        }
+        return;
+    }
+    for(int col = 0; col < N; col++){
+        if(isSafe(row, col)){
+            board[row][col] = 1;
+            solveNQueen(row+1);
+            board[row][col] = 0;
+        }
+    }
+    return;
+}
+int main(){
+    cout << "Enter number of queens: ";
+    cin >> N;
+    solveNQueen(0);
+    return 0;
+}
