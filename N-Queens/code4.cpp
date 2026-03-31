@@ -9,38 +9,39 @@ bool isSafe(int r, int c){
             return false;
         }
     }
-    for(int i=r-1, j=c-1; i>=0 && j>=0 ; i--, j--){
+    for(int i=r-1, j=c-1; i>=0 && j>=0; i--, j--){
         if(board[i][j]){
             return false;
         }
     }
-    for(int i=r-1, j=c+1; i>=0 && j<N ; i--, j++){
+    for(int i=r-1, j=c+1; i>=0 && j<N; i--, j++){
         if(board[i][j]){
             return false;
         }
     }
     return true;
 }
-bool solveNQueen(int row){
-    if(row == N){
+bool solveNQueen(int r){
+    if(r == N){
         return true;
     }
-    for(int col = 0; col < N; col++){
-        if(isSafe(row, col)){
-            board[row][col] = 1;
-            if(solveNQueen(row+1)){
-                return true;
+    else{
+        for(int c = 0; c<N; c++){
+            if(isSafe(r,c)){
+                board[r][c] = 1;
+                if(solveNQueen(r+1)){
+                    return true;
+                }
+                board[r][c] = 0;
             }
-            board[row][col] = 0;
         }
     }
     return false;
 }
 int main(){
-    cout << "Enter number of queens: ";
+    cout << "Number of Q: ";
     cin >> N;
     if(solveNQueen(0)){
-        cout << "\nSolution:\n";
         for(int i=0; i<N; i++){
             for(int j=0; j<N; j++){
                 cout << board[i][j] << " ";
@@ -49,7 +50,7 @@ int main(){
         }
     }
     else{
-        cout << "No solution exists";
+        cout << "No solution exist." << endl;
     }
     return 0;
 }
